@@ -1,0 +1,100 @@
+{
+  inputs = {
+    utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=4054c68739e77f0840599a7881081d10f91d26f0";
+  };
+  outputs = { self, nixpkgs, utils }: utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      devShell = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          (python3.withPackages (ppkgs: with ppkgs; [
+            aiohttp
+            alembic
+            anthropic
+            apscheduler
+            argon2-cffi
+            authlib
+            bcrypt
+            beautifulsoup4
+            black
+            boto3
+            chromadb
+            docx2txt
+            duckduckgo-search
+            extract-msg
+            fake-useragent
+            fastapi
+            faster-whisper
+            flask
+            flask-cors
+            fpdf2
+            google-generativeai
+            langchain
+            langchain-chroma
+            langchain-community
+            langfuse
+            markdown
+            openai
+            opencv4
+            openpyxl
+            pandas
+            passlib
+            peewee
+            peewee-migrate
+            psutil
+            psycopg2
+            pydub
+            pyjwt
+            pymongo
+            pymysql
+            pypandoc
+            pypdf
+            python-dotenv
+            python-jose
+            python-multipart
+            python-pptx
+            python-socketio
+            pytube
+            pyxlsb
+            rank-bm25
+            rapidocr-onnxruntime
+            redis
+            requests
+            sentence-transformers
+            tiktoken
+            unstructured
+            uvicorn
+            validators
+            xlrd
+            youtube-transcript-api
+            pydantic
+            flask
+            flask-cors
+            sqlalchemy
+            psycopg2-binary
+            pymysql
+            apscheduler
+            pymilvus
+            colbert-ai
+            einops
+            ftfy
+            nltk
+            markdown
+            #opencv-python-headless
+            pyjwt
+            extract-msg
+            #docker
+            #pytest
+            #pytest-docker
+          ]))
+          nodejs
+          vite
+          podman-compose
+        ];
+      };
+    }
+  );
+}

@@ -178,14 +178,14 @@ class SPAStaticFiles(StaticFiles):
 
 print(
     rf"""
-  ___                    __        __   _     _   _ ___ 
+  ___                    __        __   _     _   _ ___
  / _ \ _ __   ___ _ __   \ \      / /__| |__ | | | |_ _|
-| | | | '_ \ / _ \ '_ \   \ \ /\ / / _ \ '_ \| | | || | 
-| |_| | |_) |  __/ | | |   \ V  V /  __/ |_) | |_| || | 
+| | | | '_ \ / _ \ '_ \   \ \ /\ / / _ \ '_ \| | | || |
+| |_| | |_) |  __/ | | |   \ V  V /  __/ |_) | |_| || |
  \___/| .__/ \___|_| |_|    \_/\_/ \___|_.__/ \___/|___|
-      |_|                                               
+      |_|
 
-      
+
 v{VERSION} - building the best open-source AI user interface.
 {f"Commit: {WEBUI_BUILD_HASH}" if WEBUI_BUILD_HASH != "dev-build" else ""}
 https://github.com/open-webui/open-webui
@@ -1443,6 +1443,7 @@ async def generate_title(form_data: dict, user=Depends(get_verified_user)):
     print("generate_title")
 
     model_id = form_data["model"]
+
     if model_id not in app.state.MODELS:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -1453,6 +1454,8 @@ async def generate_title(form_data: dict, user=Depends(get_verified_user)):
     # If the user has a custom task model, use that model
     task_model_id = get_task_model_id(model_id)
     print(task_model_id)
+    if "o1" in task_model_id:
+        task_model_id = "gpt-4o-mini"
 
     model = app.state.MODELS[task_model_id]
 
